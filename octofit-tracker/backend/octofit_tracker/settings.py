@@ -1,3 +1,12 @@
+# Codespace CORS configuration
+import os
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME', '')
+if CODESPACE_NAME:
+    CORS_ALLOWED_ORIGINS = [
+        f"https://{CODESPACE_NAME}-8000.app.github.dev"
+    ]
+else:
+    CORS_ALLOWED_ORIGINS = []
 """
 Django settings for octofit_tracker project.
 
@@ -26,8 +35,14 @@ SECRET_KEY = 'django-insecure-dk(p083*7a_!zbgk$k9-o=29nw6!co^8of@nz5fa%uc_^^*^#5
 DEBUG = True
 
 
-# Allow all hosts
-ALLOWED_HOSTS = ['*']
+
+# Allow localhost and Codespace URL
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+]
+if CODESPACE_NAME:
+    ALLOWED_HOSTS.append(f"{CODESPACE_NAME}-8000.app.github.dev")
 
 
 # Application definition
